@@ -1,4 +1,5 @@
-==FDS Captcha Contact Form==
+## FDS Captcha Contact Form
+
 Contributors: tariqdeveloper
 Tags: captcha, contact Form
 Requires at least: 4.7
