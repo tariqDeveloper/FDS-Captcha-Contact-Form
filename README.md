@@ -1,4 +1,12 @@
-# fds-captcha-contact-form
+==FDS Captcha Contact Form==
+Contributors: tariqdeveloper
+Tags: captcha, contact Form
+Requires at least: 4.7
+Tested up to: 5.4
+Stable tag: 4.3
+Requires PHP: 7.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## License
 
@@ -10,13 +18,13 @@ This plugin is free software: you can redistribute it and/or modify it under the
 
 1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Go to the plugin settings page located in the WordPress menu, and configure the plugin settings according to your needs.
-4. Use the shortcodes or widgets provided by the plugin to display the plugin's features on your website.
+3. Go to the plugin settings page located in the WordPress settings menu, and configure the plugin settings according to your needs.
+4. Use the shortcode provided by the plugin to display the plugin's features on your website.
 
 ## Usage
 
 To use this plugin, you can do the following:
-- Use the shortcode [shortcode_example] to display the feature on any post or page.
+- Use the shortcode [fds_captcha_display_form_] to display the feature on any post or page.
 - Use the settings provided in WordPress settings menu named "FDS Captcha". Here you can put a list of comma seprated emails where the form response should be sent.
 
 ## Tips

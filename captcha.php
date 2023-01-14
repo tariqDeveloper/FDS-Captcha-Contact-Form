@@ -269,7 +269,7 @@ function fds_captcha_display_captcha_form_shortcode()
 }
 
 // Register the shortcode
-add_shortcode($shortcode_tag, 'fds_captcha_display_captcha_form_shortcode');
+add_shortcode($shortcode_tag, 'fds_captcha_display_form_');
 
 function display_captcha_form()
 {
