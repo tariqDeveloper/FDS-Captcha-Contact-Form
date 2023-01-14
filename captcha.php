@@ -164,7 +164,7 @@ function submit_fds_contact_callback()
         $captcha_solution = $_SESSION['captcha_string'];
         // Compare the user's input to the correct solution
         if ($captcha_input == $captcha_solution) {
-            $admin_email = get_option('admin_email');
+            $admin_email = get_option('fds_captcha_email_list');
             $to = $admin_email;
             $subject = get_site_url();
             $body = '<p>Name: ' . $_POST['name'] . '</p><p>Email: ' . $_POST['email'] . '</p><p>Message: ' . $_POST['msg'] . '</p><p>Page URL: ' . $_SERVER['HTTP_REFERER'] . '</p><p>IP Address: ' . $_SERVER['REMOTE_ADDR'] . '</p>';
@@ -242,7 +242,7 @@ function generate_captcha_image()
 $shortcode_tag = 'fds_captcha_form';
 
 // Define the shortcode callback function
-function display_captcha_form_shortcode()
+function fds_captcha_display_captcha_form_shortcode()
 {
     // Display the form
     ob_start();
@@ -251,7 +251,7 @@ function display_captcha_form_shortcode()
 }
 
 // Register the shortcode
-add_shortcode($shortcode_tag, 'display_captcha_form_shortcode');
+add_shortcode($shortcode_tag, 'fds_captcha_display_captcha_form_shortcode');
 
 function display_captcha_form()
 {
@@ -292,50 +292,6 @@ function display_captcha_form()
 
 add_action('admin_post_verify_captcha', 'display_captcha_form');
 
-// Add a new menu item to the WordPress settings menu
-function fds_captcha_register_settings() {
-    add_options_page(
-        'FDS Captcha Settings',
-        'FDS Captcha',
-        'manage_options',
-        'fds-captcha-settings',
-        'fds_captcha_settings_page'
-    );
+if (file_exists( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' )) {
+    require_once( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' );
 }
-add_action( 'admin_menu', 'fds_captcha_register_settings' );
-
-// Callback function that displays the content of the settings page
-function fds_captcha_settings_page() {
-    ?>
-    <div class="wrap">
-        <h1>FDS Captcha Settings</h1>
-        <form method="post" action="options.php">
-            <?php
-            settings_fields( 'fds-captcha-settings' );
-            do_settings_sections( 'fds-captcha-settings' );
-            ?>
-            <table class="form-table">
-                <tr valign="top">
-                    <th scope="row">
-                        <label for="fds_captcha_email_list">Email List</label>
-                    </th>
-                    <td>
-                        <input type="text" id="fds_captcha_email_list" name="fds_captcha_email_list" value="<?php echo esc_attr( get_option( 'fds_captcha_email_list' ) ); ?>" size="40" />
-                        <br>
-                        <small>Enter multiple email addresses separated by a comma.</small>
-                    </td>
-                </tr>
-            </table>
-            <?php
-            submit_button();
-            ?>
-        </form>
-    </div>
-    <?php
-}
-
-// Register settings, sections, and fields for the settings page
-function fds_captcha_register_settings_fields() {
-    register_setting( 'fds-captcha-settings', 'fds_captcha_email_list' );
-}
-add_action( 'admin_init', 'fds_captcha_register_settings_fields' );
