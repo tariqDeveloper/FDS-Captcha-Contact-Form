@@ -313,3 +313,9 @@ add_action('admin_post_verify_captcha', 'display_captcha_form');
 if (file_exists( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' )) {
     require_once( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' );
 }
+function fds_captcha_settings_link( $links ) {
+    $settings_link = '<a href="' . admin_url( 'options-general.php?page=fds-captcha-settings' ) . '">Settings</a>';
+    array_push( $links, $settings_link );
+    return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'fds_captcha_settings_link' );

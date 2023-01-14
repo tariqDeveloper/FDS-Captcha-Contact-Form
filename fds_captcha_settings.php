@@ -45,12 +45,5 @@ function fds_captcha_settings_page() {
 function fds_captcha_register_settings_fields() {
     register_setting( 'fds-captcha-settings', 'fds_captcha_email_list' );
 }
-
 add_action( 'admin_init', 'fds_captcha_register_settings_fields' );
-function fds_captcha_settings_link( $links ) {
-    $settings_link = '<a href="' . admin_url( 'options-general.php?page=fds-captcha-settings' ) . '">Settings</a>';
-    array_push( $links, $settings_link );
-    return $links;
-}
-add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'fds_captcha_settings_link' );
 
