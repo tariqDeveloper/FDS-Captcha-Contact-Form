@@ -1,11 +1,29 @@
 <?php
-/*
-  Plugin Name: Custom CAPTCHA Plugin
-  Description: A plugin that adds a custom image-based CAPTCHA to your WordPress site.
-  Version: 1.0
-  Author: Ibrar Ayoub
-  License: GPLv2 or later
-*/
+/**
+ * Plugin Name: FDS CAPTCHA Contact Form
+ * Plugin URI: https://github.com/tariqDeveloper/FDS-Captcha-Contact-Form
+ * Description: A plugin that adds a custom image-based CAPTCHA to your WordPress site.
+ * Version: 1.0
+ * Author: Muhammad Tariq Khan
+ * Author URI: https://github.com/tariqDeveloper
+ * License: GPL2
+ *
+ * Copyright (C) 2021  Your Name  (email : yourname@example.com)
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License, version 2, as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+ */
+
 
 // Exit if accessed directly
 if (!defined('ABSPATH')) {
