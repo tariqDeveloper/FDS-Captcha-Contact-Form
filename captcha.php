@@ -257,7 +257,7 @@ function generate_captcha_image()
 
 
 // Define the shortcode tag
-$shortcode_tag = 'fds_captcha_form';
+$shortcode_tag = 'fds-captcha-form';
 
 // Define the shortcode callback function
 function fds_captcha_display_captcha_form_shortcode()
@@ -269,7 +269,7 @@ function fds_captcha_display_captcha_form_shortcode()
 }
 
 // Register the shortcode
-add_shortcode($shortcode_tag, 'fds_captcha_display_form_');
+add_shortcode($shortcode_tag, 'fds_captcha_display_captcha_form_shortcode');
 
 function display_captcha_form()
 {
