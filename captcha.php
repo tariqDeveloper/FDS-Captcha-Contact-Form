@@ -41,7 +41,7 @@ function fds_captcha_scripts()
 add_action('wp_enqueue_scripts', 'fds_captcha_scripts');
 
 
-function my_custom_js()
+function fds_captcha_custom_js()
 {
     ?>
     <script>
@@ -158,7 +158,7 @@ function my_custom_js()
     <?php
 }
 
-add_action('wp_footer', 'my_custom_js');
+add_action('wp_footer', 'fds_captcha_custom_js');
 
 add_action('wp_ajax_my_action', 'my_action_callback');
 add_action('wp_ajax_nopriv_my_action', 'my_action_callback');
