@@ -57,7 +57,7 @@ function fds_captcha_custom_js()
                     url: ajax_object.ajaxurl,  // The URL for the request. This is defined by WordPress and is used to process requests from the front-end.
                     type: 'POST',  // The type of request to make (POST, GET, etc.).
                     data: {
-                        action: 'my_action',  // The name of the action to be executed by the WordPress backend.
+                        action: 'fds_captcha_my_action',  // The name of the action to be executed by the WordPress backend.
                     },
                     success: function (response) {  // The function to run if the request is successful.
                         if (firstTime) {
@@ -160,21 +160,21 @@ function fds_captcha_custom_js()
 
 add_action('wp_footer', 'fds_captcha_custom_js');
 
-add_action('wp_ajax_my_action', 'my_action_callback');
-add_action('wp_ajax_nopriv_my_action', 'my_action_callback');
+add_action('wp_ajax_fds_captcha_my_action', 'fds_captcha_my_action_callback');
+add_action('wp_ajax_nopriv_fds_captcha_my_action', 'fds_captcha_my_action_callback');
 add_action('wp_ajax_submit_fds_contact', 'submit_fds_contact_callback');
 add_action('wp_ajax_nopriv_submit_fds_contact', 'submit_fds_contact_callback');
 
-function my_action_callback()
+function fds_captcha_my_action_callback()
 {
     // Get the data from the request
-    generate_captcha_image();
+	fds_captcha_generate_captcha_image();
 }
 
 function submit_fds_contact_callback()
 {
     session_start();
-    if (verify_captcha_expiry()) {
+    if (fds_captcha_verify_captcha_expiry()) {
         // Read the user's input
         $captcha_input = $_POST['captcha'];
 
@@ -196,17 +196,16 @@ function submit_fds_contact_callback()
             wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA incorrrect. Please reload and try again.'));
         }
     }
-    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again.'));
+    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again1.'));
 }
 
 
-function verify_captcha_expiry()
+function fds_captcha_verify_captcha_expiry()
 {
     // Get the CAPTCHA string and time from the session
     $captcha_time = $_SESSION['captcha_time'];
-
     // Check if the CAPTCHA has expired (1 minute = 60 seconds)
-    if (time() - $captcha_time > 60) {
+    if (time() - $captcha_time > 300) {
         // The CAPTCHA has expired, send an error response
         return 0;
     } else {
@@ -215,7 +214,7 @@ function verify_captcha_expiry()
 }
 
 
-function generate_captcha_image()
+function fds_captcha_generate_captcha_image()
 {
     session_start();
     // Set the content type to image/png
