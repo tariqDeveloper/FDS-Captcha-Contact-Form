@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FDS CAPTCHA Contact Form
  * Plugin URI: https://github.com/tariqDeveloper/FDS-Captcha-Contact-Form
- * Description: A plugin that adds a custom image-based CAPTCHA to your WordPress site.
+ * Description: A plugin that adds a custom image-based CAPTCHA Contact Form to your WordPress site.
  * Version: 1.0
  * Author: Muhammad Tariq Khan
  * Author URI: https://github.com/tariqDeveloper
