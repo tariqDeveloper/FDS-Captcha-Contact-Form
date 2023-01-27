@@ -174,6 +174,7 @@ function fds_captcha_my_action_callback()
 function submit_fds_contact_callback()
 {
     session_start();
+
     if (fds_captcha_verify_captcha_expiry()) {
         // Read the user's input
         $captcha_input = $_POST['captcha'];
@@ -202,15 +203,19 @@ function submit_fds_contact_callback()
 
 function fds_captcha_verify_captcha_expiry()
 {
+    session_start();
     // Get the CAPTCHA string and time from the session
     $captcha_time = $_SESSION['captcha_time'];
-    // Check if the CAPTCHA has expired (1 minute = 60 seconds)
-    if (time() - $captcha_time > 300) {
-        // The CAPTCHA has expired, send an error response
+	// Check if the CAPTCHA has expired (1 minute = 60 seconds)
+	//return wp_send_json_error(array('status' => false, 'msg' => $captcha_time));
+	$now = new DateTime();
+	$now->setTimezone(new DateTimeZone('UTC'));
+	$timestamp = $now->getTimestamp();
+	if ($timestamp - $captcha_time > 300)
         return 0;
-    } else {
-        return 1;
-    }
+
+    return 1;
+
 }
 
 
@@ -240,7 +245,12 @@ function fds_captcha_generate_captcha_image()
     $black = imagecolorallocate($image, 0, 0, 0);
     imagestring($image, 5, 75, 15, $captcha_string, $black);
     $_SESSION['captcha_string'] = $captcha_string;
-    $_SESSION['captcha_time'] = time();
+
+	$now = new DateTime();
+	$now->setTimezone(new DateTimeZone('UTC'));
+	$timestamp = $now->getTimestamp();
+
+    $_SESSION['captcha_time'] = $timestamp;
 
     // Output the image to the browser
     ob_start();
