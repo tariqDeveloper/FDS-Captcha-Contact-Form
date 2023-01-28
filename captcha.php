@@ -136,17 +136,16 @@ function fds_captcha_custom_js()
                         captcha: captcha
                     },
                     success: function (response) {  // The function to run if the request is successful.
-                        // console.log(response);
-                        // if (response.data.status) {
-                        //
-                        //     $('#success_msg').html(response.data.msg);
-                        //     $('#success_msg').show();
-                        //     $('#fds_contact_form').trigger('reset');
-                        //
-                        // } else {
-                        //     $('#success_msg').html(response.data.msg);
-                        //     $('#success_msg').show();
-                        // }
+
+                        if (response.data.status) {
+                            getCaptcha(0);
+                            $('#success_msg').html(response.data.msg);
+                            $('#success_msg').show();
+                            $('#fds_contact_form').trigger('reset');
+                        } else {
+                            $('#success_msg').html(response.data.msg);
+                            $('#success_msg').show();
+                        }
                     },
                     error: function (error) {  // The function to run if the request fails.
                         // Do something with the error here.
@@ -170,7 +169,6 @@ function fds_captcha_my_action_callback()
     // Get the data from the request
 	fds_captcha_generate_captcha_image();
 }
-
 function submit_fds_contact_callback()
 {
     session_start();
@@ -186,23 +184,21 @@ function submit_fds_contact_callback()
             $to = $admin_email;
             $subject = get_site_url();
             $body = '<p>Name: ' . $_POST['name'] . '</p><p>Email: ' . $_POST['email'] . '</p><p>Message: ' . $_POST['msg'] . '</p><p>Page URL: ' . $_SERVER['HTTP_REFERER'] . '</p><p>IP Address: ' . $_SERVER['REMOTE_ADDR'] . '</p>';
-            $headers = array('From: FDS Contact Form' . 'Content-Type: text/html; charset=UTF-8');
+            $headers = array('Content-Type: text/html; charset=UTF-8');
             if (wp_mail($to, $subject, $body, $headers)) {
-                $location = $_SERVER['HTTP_REFERER'];
                 wp_send_json_success(array('status' => true, 'msg' => 'Thanks For contacting Us.'));
             }
             else{
-	            echo "mail Not sent";
-	            exit();
+	            wp_send_json_success(array('status' => false, 'msg' => "Can't connect right now. Please Try again later."));
             }
         } else {
             // The user's input is incorrect, display an error message and allow them to try again
             wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA incorrrect. Please reload and try again.'));
         }
     }
-    else{
-	    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again.'));
-    }
+
+    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again.'));
+
 }
 
 
