@@ -136,23 +136,23 @@ function fds_captcha_custom_js()
                         captcha: captcha
                     },
                     success: function (response) {  // The function to run if the request is successful.
-                        if (response.data.status) {
-                            $('#success_msg').html(response.data.msg);
-                            $('#success_msg').show();
-                            $('#fds_contact_form').trigger('reset');
-
-                        } else {
-                            $('#success_msg').html(response.data.msg);
-                            $('#success_msg').show();
-                        }
+                        // console.log(response);
+                        // if (response.data.status) {
+                        //
+                        //     $('#success_msg').html(response.data.msg);
+                        //     $('#success_msg').show();
+                        //     $('#fds_contact_form').trigger('reset');
+                        //
+                        // } else {
+                        //     $('#success_msg').html(response.data.msg);
+                        //     $('#success_msg').show();
+                        // }
                     },
                     error: function (error) {  // The function to run if the request fails.
                         // Do something with the error here.
                     }
                 });
             });
-
-
         })(jQuery);
     </script>
     <?php
@@ -174,10 +174,9 @@ function fds_captcha_my_action_callback()
 function submit_fds_contact_callback()
 {
     session_start();
-
     if (fds_captcha_verify_captcha_expiry()) {
         // Read the user's input
-        $captcha_input = $_POST['captcha'];
+         $captcha_input = $_POST['captcha'];
 
         // Read the correct solution for the CAPTCHA image from a file or database
         $captcha_solution = $_SESSION['captcha_string'];
@@ -192,29 +191,38 @@ function submit_fds_contact_callback()
                 $location = $_SERVER['HTTP_REFERER'];
                 wp_send_json_success(array('status' => true, 'msg' => 'Thanks For contacting Us.'));
             }
+            else{
+	            echo "mail Not sent";
+	            exit();
+            }
         } else {
             // The user's input is incorrect, display an error message and allow them to try again
             wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA incorrrect. Please reload and try again.'));
         }
     }
-    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again1.'));
+    else{
+	    wp_send_json_error(array('status' => false, 'msg' => 'CAPTCHA expired. Please reload and try again.'));
+    }
 }
 
 
 function fds_captcha_verify_captcha_expiry()
 {
-    session_start();
-    // Get the CAPTCHA string and time from the session
-    $captcha_time = $_SESSION['captcha_time'];
-	// Check if the CAPTCHA has expired (1 minute = 60 seconds)
-	//return wp_send_json_error(array('status' => false, 'msg' => $captcha_time));
-	$now = new DateTime();
-	$now->setTimezone(new DateTimeZone('UTC'));
-	$timestamp = $now->getTimestamp();
-	if ($timestamp - $captcha_time > 300)
-        return 0;
 
-    return 1;
+    session_start();
+
+	$dateTimeObject1 = $_SESSION['captcha_time'];
+	$dateTimeObject2 = new DateTime();
+	$interval = date_diff($dateTimeObject1, $dateTimeObject2);
+	$minutes = $interval->days * 24 * 60;
+	$minutes += $interval->h * 60;
+	$minutes += $interval->i;
+
+	if ($minutes <= 5) {
+        return 1;
+	}
+
+    return 0;
 
 }
 
@@ -246,11 +254,7 @@ function fds_captcha_generate_captcha_image()
     imagestring($image, 5, 75, 15, $captcha_string, $black);
     $_SESSION['captcha_string'] = $captcha_string;
 
-	$now = new DateTime();
-	$now->setTimezone(new DateTimeZone('UTC'));
-	$timestamp = $now->getTimestamp();
-
-    $_SESSION['captcha_time'] = $timestamp;
+	$_SESSION['captcha_time'] = new DateTime();
 
     // Output the image to the browser
     ob_start();
