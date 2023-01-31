@@ -138,10 +138,10 @@ function fds_captcha_custom_js()
                     success: function (response) {  // The function to run if the request is successful.
 
                         if (response.data.status) {
-                            getCaptcha(0);
                             $('#success_msg').html(response.data.msg);
                             $('#success_msg').show();
                             $('#fds_contact_form').trigger('reset');
+                            getCaptcha(0);
                         } else {
                             $('#success_msg').html(response.data.msg);
                             $('#success_msg').show();
