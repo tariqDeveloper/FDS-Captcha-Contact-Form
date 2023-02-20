@@ -25,7 +25,7 @@ This plugin is free software: you can redistribute it and/or modify it under the
 ## Usage
 
 To use this plugin, you can do the following:
-- Use the shortcode [fds_captcha_display_form_] to display the feature on any post or page.
+- Use the shortcode [fds-captcha-form] to display the feature on any post or page.
 - Use the settings provided in WordPress settings menu named "FDS Captcha". Here you can put a list of comma seprated emails where the form response should be sent.
 
 ## Tips
