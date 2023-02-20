@@ -161,29 +161,29 @@ add_action('wp_footer', 'fds_captcha_custom_js');
 
 add_action('wp_ajax_fds_captcha_my_action', 'fds_captcha_my_action_callback');
 add_action('wp_ajax_nopriv_fds_captcha_my_action', 'fds_captcha_my_action_callback');
-add_action('wp_ajax_submit_fds_contact', 'submit_fds_contact_callback');
-add_action('wp_ajax_nopriv_submit_fds_contact', 'submit_fds_contact_callback');
+add_action('wp_ajax_submit_fds_contact', 'fds_captcha_submit_fds_contact_callback');
+add_action('wp_ajax_nopriv_submit_fds_contact', 'fds_captcha_submit_fds_contact_callback');
 
 function fds_captcha_my_action_callback()
 {
     // Get the data from the request
 	fds_captcha_generate_captcha_image();
 }
-function submit_fds_contact_callback()
+function fds_captcha_submit_fds_contact_callback()
 {
     session_start();
     if (fds_captcha_verify_captcha_expiry()) {
         // Read the user's input
-         $captcha_input = $_POST['captcha'];
+         $captcha_input = sanitize_text_field($_POST['captcha']);
 
         // Read the correct solution for the CAPTCHA image from a file or database
-        $captcha_solution = $_SESSION['captcha_string'];
+        $captcha_solution = sanitize_text_field($_SESSION['captcha_string']);
         // Compare the user's input to the correct solution
         if ($captcha_input == $captcha_solution) {
             $admin_email = get_option('fds_captcha_email_list');
             $to = $admin_email;
             $subject = get_site_url();
-            $body = '<p>Name: ' . $_POST['name'] . '</p><p>Email: ' . $_POST['email'] . '</p><p>Message: ' . $_POST['msg'] . '</p><p>Page URL: ' . $_SERVER['HTTP_REFERER'] . '</p><p>IP Address: ' . $_SERVER['REMOTE_ADDR'] . '</p>';
+            $body = '<p>Name: ' . sanitize_text_field($_POST['name']) . '</p><p>Email: ' . sanitize_email($_POST['email']) . '</p><p>Message: ' . sanitize_textarea_field($_POST['msg']) . '</p><p>Page URL: ' . sanitize_url($_SERVER['HTTP_REFERER']) . '</p><p>IP Address: ' . sanitize_text_field($_SERVER['REMOTE_ADDR']) . '</p>';
             $headers = array('Content-Type: text/html; charset=UTF-8');
             if (wp_mail($to, $subject, $body, $headers)) {
                 wp_send_json_success(array('status' => true, 'msg' => 'Thanks For contacting Us.'));
@@ -207,7 +207,7 @@ function fds_captcha_verify_captcha_expiry()
 
     session_start();
 
-	$dateTimeObject1 = $_SESSION['captcha_time'];
+	$dateTimeObject1 = sanitize_text_field($_SESSION['captcha_time']);
 	$dateTimeObject2 = new DateTime();
 	$interval = date_diff($dateTimeObject1, $dateTimeObject2);
 	$minutes = $interval->days * 24 * 60;
@@ -273,14 +273,14 @@ function fds_captcha_display_captcha_form_shortcode()
 {
     // Display the form
     ob_start();
-    display_captcha_form();
+    fds_captcha_display_captcha_form();
     return ob_get_clean();
 }
 
 // Register the shortcode
 add_shortcode($shortcode_tag, 'fds_captcha_display_captcha_form_shortcode');
 
-function display_captcha_form()
+function fds_captcha_display_captcha_form()
 {
     ?>
     <form id="fds_contact_form" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
@@ -323,7 +323,7 @@ if (file_exists( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' )) {
     require_once( plugin_dir_path( __FILE__ ) . 'fds_captcha_settings.php' );
 }
 function fds_captcha_settings_link( $links ) {
-    $settings_link = '<a href="' . admin_url( 'options-general.php?page=fds-captcha-settings' ) . '">Settings</a>';
+    $settings_link = '<a href="' . esc_url(admin_url( 'options-general.php?page=fds-captcha-settings' )) . '">Settings</a>';
     array_push( $links, $settings_link );
     return $links;
 }
