@@ -1,21 +1,43 @@
-# 💫 About Me:
-I am currently working on Laravel and WordPress development.  I have 5 years of experience in web development.<br>
+=== FDS Captcha Contact Form ===
+Contributors: tariqdeveloper
+Tags: Text Based Captcha,captcha, contact Form
+Requires at least: 4.7
+Tested up to: 5.4
+Requires PHP: 7.0
+Stable tag: 4.3
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+== Description ==
+## License
+
+This plugin is licensed under GPLv2 or later. You can find a copy of the license in the LICENSE file or at [https://www.gnu.org/licenses/gpl-2.0.txt](https://www.gnu.org/licenses/gpl-2.0.txt)
+
+This plugin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 2 of the License, or any later version.
 
 
-## 🌐 Socials:
-[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?logo=Facebook&logoColor=white)](https://facebook.com/https://www.facebook.com/profile.php?id=100004728409455) [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/https://www.linkedin.com/in/muhammad-tariq-khan-developer/) [![Stack Overflow](https://img.shields.io/badge/-Stackoverflow-FE7A16?logo=stack-overflow&logoColor=white)](https://stackoverflow.com/users/10464710) [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?logo=Twitter&logoColor=white)](https://twitter.com/https://twitter.com/tariqkhan786) 
+## Usage
 
-# 💻 Tech Stack:
-![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white) ![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white) ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) ![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white) ![jQuery](https://img.shields.io/badge/jquery-%230769AD.svg?style=for-the-badge&logo=jquery&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-%2300f.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-# 📊 GitHub Stats:
-![](https://github-readme-stats.vercel.app/api?username=tariqDeveloper&theme=dark&hide_border=false&include_all_commits=false&count_private=false)<br/>
-![](https://github-readme-streak-stats.herokuapp.com/?user=tariqDeveloper&theme=dark&hide_border=false)<br/>
-![](https://github-readme-stats.vercel.app/api/top-langs/?username=tariqDeveloper&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
+To use this plugin, you can do the following:
+- Use the shortcode [fds-captcha-form] to display the feature on any post or page.
+- Use the settings provided in WordPress settings menu named \"FDS Captcha\". Here you can put a list of comma-separated emails where the form response should be sent.
 
-### 🔝 Top Contributed Repo
-![](https://github-contributor-stats.vercel.app/api?username=tariqDeveloper&limit=5&theme=dark&combine_all_yearly_contributions=true)
+## Tips
 
----
-[![](https://visitcount.itsvg.in/api?id=tariqDeveloper&icon=2&color=3)](https://visitcount.itsvg.in)
+- You can customize the plugin\'s appearance using CSS.
+- The plugin has been tested with the latest version of WordPress and should work with older versions as well.
+- For more detailed instructions, please refer to the documentation provided with the plugin.
 
-<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
+
+== Installation ==
+
+1. Upload the plugin files to the `/wp-content/plugins/` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the \'Plugins\' screen in WordPress.
+3. Go to the plugin settings page located in the WordPress settings menu, and configure the plugin settings according to your needs.
+4. Use the shortcode provided by the plugin to display the plugin\'s features on your website.
+
+== Frequently Asked Questions ==
+=Is there any other captcha type available?=
+No, For now, there is no other captcha type available apart from the next one, but we are hopeful to include another captcha type in the future.
+=What is Captcha expiration time?=
+The expiry limit of the captcha is 5 minutes. We will make it more dynamic in the next release soon. 
